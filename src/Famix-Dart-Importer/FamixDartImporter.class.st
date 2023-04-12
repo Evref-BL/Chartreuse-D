@@ -11,9 +11,20 @@ Class {
 }
 
 { #category : #'private - factory' }
+FamixDartImporter >> ensureAttributeNamed: aString [
+
+		^ self model add: (FamixDartAttribut new
+			   name: aString;
+			   yourself)
+]
+
+{ #category : #'private - factory' }
 FamixDartImporter >> ensureClassNamed: aString [
 
-	^ self model add:( FamixDartClass new name: aString; yourself)
+	^ self model add: (FamixDartClass new
+			   name: aString;
+			   yourself)
+	
 ]
 
 { #category : #'private - factory' }

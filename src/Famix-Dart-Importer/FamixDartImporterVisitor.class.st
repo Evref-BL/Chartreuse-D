@@ -57,10 +57,11 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 
 	| famixEntity |
 	
+	
 	aClassMemberDefinition nodeVariables. "#(#methodSignature #functionBody #declaration)" "method"
-	1 halt.
 
-	aClassMemberDefinition methodSignature ifNotNil: [ 
+	"si definition est une methode avec signature et un body"
+	((aClassMemberDefinition methodSignature ~= nil) and: [ aClassMemberDefinition functionBody ~= nil ] ) ifTrue: [ 
 		| name |
 		name := (aClassMemberDefinition methodSignature topParent
 			         completeSource
@@ -74,6 +75,7 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 		
 		 ].
 
+	"declaration equals attributs"
 	aClassMemberDefinition declaration ifNotNil: [ 
 		| name |
 		
@@ -84,7 +86,11 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 			         copyFrom:
 			         aClassMemberDefinition declaration startPosition
 			         to: aClassMemberDefinition declaration stopPosition)
-			        asString , ')'.
+			        asString.
+		
+		famixEntity := self importer ensureAttributeNamed: name. 
+		famixEntity parentType: stackScope lastLink value value. 
+		
 		 ].
 
 

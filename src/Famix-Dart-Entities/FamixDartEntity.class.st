@@ -29,6 +29,13 @@ FamixDartEntity class >> metamodel [
 ]
 
 { #category : #testing }
+FamixDartEntity >> isAttribute [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
 FamixDartEntity >> isBehavioural [
 
 	<generated>
@@ -44,6 +51,13 @@ FamixDartEntity >> isClass [
 
 { #category : #testing }
 FamixDartEntity >> isMethod [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixDartEntity >> isStructuralEntity [
 
 	<generated>
 	^ false

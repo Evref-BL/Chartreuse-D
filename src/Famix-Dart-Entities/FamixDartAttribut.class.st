@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixDartAttribut,
 	#superclass : #FamixDartEntity,
-	#traits : 'FamixTNamedEntity',
-	#classTraits : 'FamixTNamedEntity classTrait',
+	#traits : 'FamixTAttribute',
+	#classTraits : 'FamixTAttribute classTrait',
 	#category : #'Famix-Dart-Entities-Entities'
 }
 

@@ -50,6 +50,5 @@ FamixDartGenerator >> defineHierarchy [
 
 	method --|> #TMethod.
 
-	attribute --|> #TNamedEntity.
-
+	attribute --|> #TAttribute
 ]
