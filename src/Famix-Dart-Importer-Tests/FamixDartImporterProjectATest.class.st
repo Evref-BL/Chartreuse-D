@@ -22,5 +22,15 @@ FamixDartImporterProjectATest >> setUp [
 { #category : #tests }
 FamixDartImporterProjectATest >> testClassAIsPresent [
 
-	self assert: dartModel allModelClasses size equals: 1
+	dartModel allModelClasses detect: [ :class | class name = 'ClassA' ]
+]
+
+{ #category : #tests }
+FamixDartImporterProjectATest >> testNumberOfClasses [
+	"
+	- ClassA
+	- AnotherClassB
+	"
+
+	self assert: dartModel allModelClasses size equals: 2
 ]
