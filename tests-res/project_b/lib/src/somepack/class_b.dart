@@ -1,1 +1,3 @@
-class classB {}
+class classB {
+  void methodOfB() {}
+}
