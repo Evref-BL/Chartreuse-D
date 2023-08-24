@@ -106,3 +106,13 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 	self visitProgram: aClassMemberDefinition.
 	^ self stackScope pop
 ]
+
+{ #category : #generated }
+FamixDartImporterVisitor >> visitInitializedVariableDeclaration: anInitializedVariableDeclaration [
+
+	| localVariable |
+	localVariable := self importer ensureLocalVariableNamed:
+		                 anInitializedVariableDeclaration declaredIdentifier
+			                 declaredIdentifier idNotFunction value.
+	self stackScope top value addLocalVariable: localVariable
+]

@@ -22,6 +22,20 @@ FamixDartImporterTest >> setUp [
 ]
 
 { #category : #tests }
+FamixDartImporterTest >> testParseMethodLocalVariable [
+
+	importer importFromString: 'class A {
+	void myMethod() {
+      var i = 12;
+  }
+}'.
+	self assert: dartModel allModelMethods size equals: 1.
+	self
+		assert: dartModel allModelMethods anyOne localVariables size
+		equals: 1
+]
+
+{ #category : #tests }
 FamixDartImporterTest >> testParseSimpleClass [
 
 	importer importFromString: 'class A {}'.

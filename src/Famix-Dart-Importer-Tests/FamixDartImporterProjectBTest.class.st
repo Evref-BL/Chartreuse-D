@@ -51,6 +51,21 @@ FamixDartImporterProjectBTest >> testClassBIsInSomepackPackage [
 				 package name = 'somepack' ])
 ]
 
+{ #category : #'tests - local variable' }
+FamixDartImporterProjectBTest >> testMethodOfClassAHasALocalVariable [
+
+	self
+		assert:
+			(dartModel allModelMethods detect: [ :method |
+				 method name = 'method' ]) localVariables size
+		equals: 1.
+	self
+		assert:
+			(dartModel allModelMethods detect: [ :method |
+				 method name = 'method' ]) localVariables anyOne name
+		equals: 'classBLocalVariable'
+]
+
 { #category : #tests }
 FamixDartImporterProjectBTest >> testNumberOfClasses [
 	"

@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixDartMethod,
 	#superclass : #FamixDartEntity,
-	#traits : 'FamixTMethod',
-	#classTraits : 'FamixTMethod classTrait',
+	#traits : 'FamixTMethod + FamixTWithLocalVariables',
+	#classTraits : 'FamixTMethod classTrait + FamixTWithLocalVariables classTrait',
 	#category : #'Famix-Dart-Entities-Entities'
 }
 

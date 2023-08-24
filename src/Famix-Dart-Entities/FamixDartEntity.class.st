@@ -50,6 +50,13 @@ FamixDartEntity >> isClass [
 ]
 
 { #category : #testing }
+FamixDartEntity >> isLocalVariable [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
 FamixDartEntity >> isMethod [
 
 	<generated>

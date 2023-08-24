@@ -34,6 +34,14 @@ FamixDartImporter >> ensureClassNamed: aString [
 ]
 
 { #category : #'private - factory' }
+FamixDartImporter >> ensureLocalVariableNamed: aString [
+
+	^ self model add: (FamixDartLocalVariable new
+			   name: aString;
+			   yourself)
+]
+
+{ #category : #'private - factory' }
 FamixDartImporter >> ensureMethodNamed: aString [
 
 	^ self model add: (FamixDartMethod new
