@@ -1,14 +1,12 @@
 SmalltalkCISpec {
-  #preTesting : SCICustomScript {
-    #path : 'ci/pretesting.st'
-  },
   #loading : [
     SCIMetacelloLoadSpec {
       #baseline : 'FamixDart',
       #directory : 'src',
       #platforms : [ #pharo ],
       #onConflict : #useIncoming,
-      #onUpgrade : #useIncoming
+      #onUpgrade : #useIncoming,
+      #registerInIceberg : true
     }
   ],
   #testing : {
