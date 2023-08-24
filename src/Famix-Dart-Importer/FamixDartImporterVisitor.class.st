@@ -56,46 +56,40 @@ FamixDartImporterVisitor >> visitClassDeclaration: aClassDeclaration [
 FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 
 	| famixEntity |
-	
-	
 	aClassMemberDefinition nodeVariables. "#(#methodSignature #functionBody #declaration)" "method"
 
 	"si definition est une methode avec signature et un body"
-	((aClassMemberDefinition methodSignature ~= nil) and: [ aClassMemberDefinition functionBody ~= nil ] ) ifTrue: [ 
-		| name |
-		name := (aClassMemberDefinition methodSignature topParent
-			         completeSource
-			         copyFrom:
-			         aClassMemberDefinition methodSignature startPosition
-			         to: aClassMemberDefinition methodSignature stopPosition)
-			        asString , ')'.
-	
-		famixEntity := self importer ensureMethodNamed: name. 
-		 famixEntity parentType: stackScope lastLink value value. 
-		
-		 ].
+	(aClassMemberDefinition methodSignature ~= nil and: [
+		 aClassMemberDefinition functionBody ~= nil ]) ifTrue: [
+		| signature |
+		signature := (aClassMemberDefinition methodSignature topParent
+			              completeSource
+			              copyFrom:
+			              aClassMemberDefinition methodSignature startPosition
+			              to:
+			              aClassMemberDefinition methodSignature stopPosition)
+			             asString , ')'.
+		famixEntity := self importer ensureMethodNamed:
+			               aClassMemberDefinition methodSignature
+				               functionSignature identifierNotFUNCTION value.
+		famixEntity signature: signature.
+
+		famixEntity parentType: stackScope lastLink value value ].
 
 	"declaration equals attributs"
-	aClassMemberDefinition declaration ifNotNil: [ 
+	aClassMemberDefinition declaration ifNotNil: [
 		| name |
-		
-		
-		
-		name := (aClassMemberDefinition declaration topParent
-			         completeSource
-			         copyFrom:
-			         aClassMemberDefinition declaration startPosition
+		name := (aClassMemberDefinition declaration topParent completeSource
+			         copyFrom: aClassMemberDefinition declaration startPosition
 			         to: aClassMemberDefinition declaration stopPosition)
 			        asString.
-		
-		famixEntity := self importer ensureAttributeNamed: name. 
-		famixEntity parentType: stackScope lastLink value value. 
-		
-		 ].
+
+		famixEntity := self importer ensureAttributeNamed: name.
+		famixEntity parentType: stackScope lastLink value value ].
 
 
 
-	stackScope push: (aClassMemberDefinition -> famixEntity).
+	stackScope push: aClassMemberDefinition -> famixEntity.
 
 	self visitProgram: aClassMemberDefinition.
 	^ stackScope pop

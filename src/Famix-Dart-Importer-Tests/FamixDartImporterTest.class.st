@@ -41,6 +41,30 @@ FamixDartImporterTest >> testParseSimpleClassWithAttribute [
 ]
 
 { #category : #tests }
+FamixDartImporterTest >> testParseSimpleMethod [
+
+	importer importFromString: 'class A {
+	void myMethod() {
+    
+  }
+}'.
+	self assert: dartModel allModelMethods size equals: 1
+]
+
+{ #category : #tests }
+FamixDartImporterTest >> testParseSimpleMethodName [
+
+	importer importFromString: 'class A {
+	void myMethod() {
+    
+  }
+}'.
+	self assert: dartModel allModelMethods size equals: 1.
+	self assert: dartModel allModelMethods anyOne signature equals: 'void myMethod()'.
+	self assert: dartModel allModelMethods anyOne name equals: 'myMethod'
+]
+
+{ #category : #tests }
 FamixDartImporterTest >> testSimpleAttributesAreInClassA [
 
 	| attributes classA |
