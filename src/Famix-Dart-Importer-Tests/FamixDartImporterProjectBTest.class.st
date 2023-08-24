@@ -1,5 +1,5 @@
 Class {
-	#name : #FamixDartImporterProjectATest,
+	#name : #FamixDartImporterProjectBTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'importer',
@@ -9,24 +9,24 @@ Class {
 }
 
 { #category : #running }
-FamixDartImporterProjectATest >> setUp [
+FamixDartImporterProjectBTest >> setUp [
 
 	super setUp.
 
 	importer := FamixDartImporter new.
 	dartModel := FamixDartModel new.
 	importer model: dartModel.
-	importer importProject: FamixDartBridge testsResourcesProjectA
+	importer importProject: FamixDartBridge testsResourcesProjectB
 ]
 
 { #category : #tests }
-FamixDartImporterProjectATest >> testClassAIsPresent [
+FamixDartImporterProjectBTest >> testClassAIsPresent [
 
 	dartModel allModelClasses detect: [ :class | class name = 'ClassA' ]
 ]
 
 { #category : #tests }
-FamixDartImporterProjectATest >> testNumberOfClasses [
+FamixDartImporterProjectBTest >> testNumberOfClasses [
 	"
 	- ClassA
 	- AnotherClassB
