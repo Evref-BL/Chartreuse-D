@@ -45,6 +45,13 @@ FamixDartTEntityCreator >> newClassNamed: aName [
 ]
 
 { #category : #'entity creation' }
+FamixDartTEntityCreator >> newInheritance [
+
+	<generated>
+	^ self add: FamixDartInheritance new
+]
+
+{ #category : #'entity creation' }
 FamixDartTEntityCreator >> newLocalVariable [
 
 	<generated>

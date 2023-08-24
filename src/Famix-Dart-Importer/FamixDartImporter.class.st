@@ -5,13 +5,18 @@ Class {
 		'model',
 		'parser',
 		'visitor',
-		'stackFamixEntities',
-		'projectName',
 		'rootPackage',
-		'currentPackage'
+		'currentPackage',
+		'importerResolvers'
 	],
 	#category : #'Famix-Dart-Importer'
 }
+
+{ #category : #initialization }
+FamixDartImporter >> addImporterResolver: anImporterResolver [
+
+	importerResolvers push: anImporterResolver
+]
 
 { #category : #'private - factory' }
 FamixDartImporter >> ensureAttributeNamed: aString [
@@ -85,15 +90,15 @@ FamixDartImporter >> importFromString: aString [
 { #category : #importer }
 FamixDartImporter >> importProject: pn fromRootFolder: aFileReference [
 	"I parse all dart files under a root folder and import them"
-
-	projectName := pn.
-	rootPackage := self ensurePackageNamed: projectName.
+	self model name: pn.
+	rootPackage := self ensurePackageNamed: pn.
 	currentPackage := rootPackage.
 	(aFileReference childrenMatching: '*.dart') do: [ :dartFileReference |
 		self importFromDartAST:
 			(self parser parse: dartFileReference contents) ].
 	aFileReference directories do: [ :directory |
-		self importDartFilesFrom: directory ]
+		self importDartFilesFrom: directory ].
+	self resolveAll
 ]
 
 { #category : #initialization }
@@ -104,7 +109,7 @@ FamixDartImporter >> initialize [
 	visitor := FamixDartImporterVisitor new
 		           importer: self;
 		           yourself.
-	stackFamixEntities := Stack new. 
+	importerResolvers := Stack new
 ]
 
 { #category : #accessing }
@@ -125,4 +130,13 @@ FamixDartImporter >> parser [
 { #category : #accessing }
 FamixDartImporter >> parser: aMetaclass [ 
 	parser := aMetaclass
+]
+
+{ #category : #'private - importer' }
+FamixDartImporter >> resolveAll [
+
+	[ importerResolvers isEmpty ] whileFalse: [
+		importerResolvers pop
+			importer: self;
+			resolve ]
 ]

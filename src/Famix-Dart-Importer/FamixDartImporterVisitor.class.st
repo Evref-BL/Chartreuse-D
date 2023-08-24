@@ -51,12 +51,18 @@ FamixDartImporterVisitor >> stackScope: anObject [
 FamixDartImporterVisitor >> visitClassDeclaration: aClassDeclaration [
 
 	| classType famixEntity |
-	classType := (aClassDeclaration children detect: [ :c | 
+	classType := (aClassDeclaration children detect: [ :c |
 		              c isKindOf: DartTypeNode ]) typeIdentifier value.
 	famixEntity := self importer ensureClassNamed: classType.
 
 	self flag: 'faire la completion de l object famix ici'.
 
+	aClassDeclaration superclass ifNotNil: [ :superClass |
+		self importer addImporterResolver:
+			(FamixDartImporterInheritanceResolver new
+				 subclass: famixEntity;
+				 context: superClass;
+				 yourself) ].
 
 	self stackScope push: aClassDeclaration -> famixEntity.
 	self visitProgram: aClassDeclaration.
@@ -86,7 +92,7 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 				               functionSignature identifierNotFUNCTION value.
 		famixEntity signature: signature.
 
-		famixEntity parentType: self stackScope lastLink value value ].
+		self stackScope lastLink value value addMethod: famixEntity ].
 
 	"declaration equals attributs"
 	aClassMemberDefinition declaration ifNotNil: [

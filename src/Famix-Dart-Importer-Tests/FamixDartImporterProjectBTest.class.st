@@ -21,6 +21,16 @@ FamixDartImporterProjectBTest >> setUp [
 		fromRootFolder: FamixDartBridge testsResourcesProjectB
 ]
 
+{ #category : #'tests - class definition' }
+FamixDartImporterProjectBTest >> testClassAHasMethod [
+
+	self
+		assert:
+			(dartModel allModelClasses detect: [ :class |
+				 class name = 'ClassA' ]) methods size
+		equals: 1
+]
+
 { #category : #'tests - package' }
 FamixDartImporterProjectBTest >> testClassAIsInSrcPackage [
 
@@ -37,6 +47,17 @@ FamixDartImporterProjectBTest >> testClassAIsInSrcPackage [
 FamixDartImporterProjectBTest >> testClassAIsPresent [
 
 	dartModel allModelClasses detect: [ :class | class name = 'ClassA' ]
+]
+
+{ #category : #'tests - class definition' }
+FamixDartImporterProjectBTest >> testClassASuperclassIsSuperClassA [
+
+	self
+		assert:
+			(dartModel allModelClasses detect: [ :class |
+				 class name = 'ClassA' ]) superclass
+		equals: (dartModel allModelClasses detect: [ :class |
+				 class name = 'SuperClassA' ])
 ]
 
 { #category : #'tests - package' }
@@ -64,6 +85,12 @@ FamixDartImporterProjectBTest >> testMethodOfClassAHasALocalVariable [
 			(dartModel allModelMethods detect: [ :method |
 				 method name = 'method' ]) localVariables anyOne name
 		equals: 'classBLocalVariable'
+]
+
+{ #category : #tests }
+FamixDartImporterProjectBTest >> testModelNameIsGivenInImport [
+
+	self assert: dartModel name equals: 'project_b'
 ]
 
 { #category : #tests }

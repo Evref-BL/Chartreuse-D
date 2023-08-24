@@ -6,7 +6,8 @@ Class {
 		'method',
 		'attribute',
 		'package',
-		'localVariable'
+		'localVariable',
+		'inheritance'
 	],
 	#category : #'Famix-Dart-Generator'
 }
@@ -38,7 +39,10 @@ FamixDartGenerator >> defineClasses [
 	method := builder newClassNamed: #Method.
 	attribute := builder newClassNamed: #Attribut.
 	package := builder newClassNamed: #Package.
-	localVariable := builder newClassNamed: #LocalVariable
+	localVariable := builder newClassNamed: #LocalVariable.
+	
+	"relation by traits"
+	inheritance := builder newClassNamed: #Inheritance
 ]
 
 { #category : #definition }
@@ -63,5 +67,8 @@ FamixDartGenerator >> defineHierarchy [
 	localVariable --|> #TLocalVariable.
 
 	package --|> #TPackage.
-	package --|> #TPackageable
+	package --|> #TPackageable.
+	
+	"relations"
+	inheritance --|> #TInheritance
 ]
