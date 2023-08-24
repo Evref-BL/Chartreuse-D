@@ -6,7 +6,9 @@ Class {
 		'parser',
 		'visitor',
 		'stackFamixEntities',
-		'projectName'
+		'projectName',
+		'rootPackage',
+		'currentPackage'
 	],
 	#category : #'Famix-Dart-Importer'
 }
@@ -14,7 +16,7 @@ Class {
 { #category : #'private - factory' }
 FamixDartImporter >> ensureAttributeNamed: aString [
 
-		^ self model add: (FamixDartAttribut new
+	^ self model add: (FamixDartAttribut new
 			   name: aString;
 			   yourself)
 ]
@@ -22,10 +24,13 @@ FamixDartImporter >> ensureAttributeNamed: aString [
 { #category : #'private - factory' }
 FamixDartImporter >> ensureClassNamed: aString [
 
-	^ self model add: (FamixDartClass new
-			   name: aString;
-			   yourself)
-	
+	| class |
+	class := FamixDartClass new
+		         name: aString;
+		         yourself.
+	class parentPackage: currentPackage.
+	self model add: class.
+	^ class
 ]
 
 { #category : #'private - factory' }
@@ -34,6 +39,28 @@ FamixDartImporter >> ensureMethodNamed: aString [
 	^ self model add: (FamixDartMethod new
 			   name: aString;
 			   yourself)
+]
+
+{ #category : #'private - factory' }
+FamixDartImporter >> ensurePackageNamed: aString [
+
+	^ self model add: (FamixDartPackage new
+			   name: aString;
+			   yourself)
+]
+
+{ #category : #'private - importer' }
+FamixDartImporter >> importDartFilesFrom: aFileReference [
+
+	| package |
+	package := self ensurePackageNamed: aFileReference basename.
+	currentPackage addChildEntity: package.
+	currentPackage := package.
+	(aFileReference childrenMatching: '*.dart') do: [ :dartFileReference |
+		self importFromDartAST:
+			(self parser parse: dartFileReference contents) ].
+	aFileReference directories do: [ :directory |
+		self importDartFilesFrom: directory ]
 ]
 
 { #category : #importer }
@@ -52,10 +79,13 @@ FamixDartImporter >> importProject: pn fromRootFolder: aFileReference [
 	"I parse all dart files under a root folder and import them"
 
 	projectName := pn.
-	(aFileReference allChildrenMatching: '*.dart') do: [
-		:dartFileReference |
+	rootPackage := self ensurePackageNamed: projectName.
+	currentPackage := rootPackage.
+	(aFileReference childrenMatching: '*.dart') do: [ :dartFileReference |
 		self importFromDartAST:
-			(self parser parse: dartFileReference contents) ]
+			(self parser parse: dartFileReference contents) ].
+	aFileReference directories do: [ :directory |
+		self importDartFilesFrom: directory ]
 ]
 
 { #category : #initialization }

@@ -56,5 +56,6 @@ FamixDartGenerator >> defineHierarchy [
 
 	attribute --|> #TAttribute.
 
-	package --|> #TPackage
+	package --|> #TPackage.
+	package --|> #TPackageable
 ]

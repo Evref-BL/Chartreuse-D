@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixDartPackage,
 	#superclass : #FamixDartEntity,
-	#traits : 'FamixTPackage',
-	#classTraits : 'FamixTPackage classTrait',
+	#traits : 'FamixTPackage + FamixTPackageable',
+	#classTraits : 'FamixTPackage classTrait + FamixTPackageable classTrait',
 	#category : #'Famix-Dart-Entities-Entities'
 }
 

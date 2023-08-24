@@ -21,10 +21,34 @@ FamixDartImporterProjectBTest >> setUp [
 		fromRootFolder: FamixDartBridge testsResourcesProjectB
 ]
 
+{ #category : #'tests - package' }
+FamixDartImporterProjectBTest >> testClassAIsInSrcPackage [
+
+	self
+		assert:
+			(dartModel allModelClasses detect: [ :class |
+				 class name = 'ClassA' ]) parentPackage
+		equals:
+			((dartModel allWithType: FamixDartPackage) detect: [ :package |
+				 package name = 'src' ])
+]
+
 { #category : #tests }
 FamixDartImporterProjectBTest >> testClassAIsPresent [
 
 	dartModel allModelClasses detect: [ :class | class name = 'ClassA' ]
+]
+
+{ #category : #'tests - package' }
+FamixDartImporterProjectBTest >> testClassBIsInSomepackPackage [
+
+	self
+		assert:
+			(dartModel allModelClasses detect: [ :class |
+				 class name = 'ClassB' ]) parentPackage
+		equals:
+			((dartModel allWithType: FamixDartPackage) detect: [ :package |
+				 package name = 'somepack' ])
 ]
 
 { #category : #tests }
@@ -35,4 +59,22 @@ FamixDartImporterProjectBTest >> testNumberOfClasses [
 	"
 
 	self assert: dartModel allModelClasses size equals: 2
+]
+
+{ #category : #tests }
+FamixDartImporterProjectBTest >> testRootPackageIsPresent [
+
+	(dartModel allWithType: FamixDartPackage) detect: [ :package | package name = 'project_b' ]
+]
+
+{ #category : #'tests - package' }
+FamixDartImporterProjectBTest >> testSomepackPackageIsInSrcPackage [
+
+	self
+		assert:
+			((dartModel allWithType: FamixDartPackage) detect: [ :package |
+				 package name = 'somepack' ]) parentPackage
+		equals:
+			((dartModel allWithType: FamixDartPackage) detect: [ :package |
+				 package name = 'src' ])
 ]

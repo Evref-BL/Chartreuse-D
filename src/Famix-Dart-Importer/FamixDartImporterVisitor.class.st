@@ -32,7 +32,19 @@ FamixDartImporterVisitor >> importer: aFamixDartImporter [
 FamixDartImporterVisitor >> initialize [
 
 	super initialize.
-	stackScope := Stack new
+	self stackScope: Stack new
+]
+
+{ #category : #accessing }
+FamixDartImporterVisitor >> stackScope [
+
+	^ stackScope
+]
+
+{ #category : #accessing }
+FamixDartImporterVisitor >> stackScope: anObject [
+
+	stackScope := anObject
 ]
 
 { #category : #generated }
@@ -46,9 +58,9 @@ FamixDartImporterVisitor >> visitClassDeclaration: aClassDeclaration [
 	self flag: 'faire la completion de l object famix ici'.
 
 
-	stackScope push: aClassDeclaration -> famixEntity.
+	self stackScope push: aClassDeclaration -> famixEntity.
 	self visitProgram: aClassDeclaration.
-	stackScope pop.
+	self stackScope pop.
 	^ famixEntity
 ]
 
@@ -74,7 +86,7 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 				               functionSignature identifierNotFUNCTION value.
 		famixEntity signature: signature.
 
-		famixEntity parentType: stackScope lastLink value value ].
+		famixEntity parentType: self stackScope lastLink value value ].
 
 	"declaration equals attributs"
 	aClassMemberDefinition declaration ifNotNil: [
@@ -85,12 +97,12 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 			        asString.
 
 		famixEntity := self importer ensureAttributeNamed: name.
-		famixEntity parentType: stackScope lastLink value value ].
+		famixEntity parentType: self stackScope lastLink value value ].
 
 
 
-	stackScope push: aClassMemberDefinition -> famixEntity.
+	self stackScope push: aClassMemberDefinition -> famixEntity.
 
 	self visitProgram: aClassMemberDefinition.
-	^ stackScope pop
+	^ self stackScope pop
 ]
