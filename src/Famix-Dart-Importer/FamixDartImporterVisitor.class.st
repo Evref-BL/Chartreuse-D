@@ -77,8 +77,8 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 	aClassMemberDefinition nodeVariables. "#(#methodSignature #functionBody #declaration)" "method"
 
 	"si definition est une methode avec signature et un body"
-	(aClassMemberDefinition methodSignature ~= nil and: [
-		 aClassMemberDefinition functionBody ~= nil ]) ifTrue: [
+	(aClassMemberDefinition methodSignature notNil and: [
+		 aClassMemberDefinition functionBody notNil ]) ifTrue: [
 		| signature |
 		signature := (aClassMemberDefinition methodSignature topParent
 			              completeSource
@@ -97,7 +97,8 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 	"declaration equals attributs"
 	aClassMemberDefinition declaration ifNotNil: [
 		| name |
-		name := aClassMemberDefinition declaration initializedIdentifierList initializedIdentifier identifier idNotFunction value.
+		name := aClassMemberDefinition declaration initializedIdentifierList
+			        initializedIdentifier identifier idNotFunction value.
 		famixEntity := self importer ensureAttributeNamed: name.
 		self stackScope lastLink value value addAttribute: famixEntity ].
 
