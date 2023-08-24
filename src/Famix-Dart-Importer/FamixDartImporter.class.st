@@ -46,6 +46,16 @@ FamixDartImporter >> importFromString: aString [
 	self importFromDartAST: (self parser parse: aString). 
 ]
 
+{ #category : #importer }
+FamixDartImporter >> importProject: aFileReference [
+	"I parse all dart files under a root folder and import them"
+
+	(aFileReference allChildrenMatching: '*.dart') do: [
+		:dartFileReference |
+		self importFromDartAST:
+			(self parser parse: dartFileReference contents) ]
+]
+
 { #category : #initialization }
 FamixDartImporter >> initialize [
 
