@@ -57,6 +57,13 @@ FamixDartEntity >> isMethod [
 ]
 
 { #category : #testing }
+FamixDartEntity >> isPackage [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
 FamixDartEntity >> isStructuralEntity [
 
 	<generated>

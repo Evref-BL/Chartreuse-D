@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixDartClass,
 	#superclass : #FamixDartEntity,
-	#traits : 'FamixTCanImplement + FamixTClass + FamixTHasVisibility + FamixTType + FamixTWithAttributes + FamixTWithMethods',
-	#classTraits : 'FamixTCanImplement classTrait + FamixTClass classTrait + FamixTHasVisibility classTrait + FamixTType classTrait + FamixTWithAttributes classTrait + FamixTWithMethods classTrait',
+	#traits : 'FamixTCanImplement + FamixTClass + FamixTHasVisibility + FamixTPackageable + FamixTType + FamixTWithAttributes + FamixTWithMethods',
+	#classTraits : 'FamixTCanImplement classTrait + FamixTClass classTrait + FamixTHasVisibility classTrait + FamixTPackageable classTrait + FamixTType classTrait + FamixTWithAttributes classTrait + FamixTWithMethods classTrait',
 	#category : #'Famix-Dart-Entities-Entities'
 }
 

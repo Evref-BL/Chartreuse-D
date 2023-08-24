@@ -19,5 +19,5 @@ FamixDartBridge class >> testsResources [
 { #category : #'class initialization' }
 FamixDartBridge class >> testsResourcesProjectB [
 
-	^ self testsResources / 'project_b'
+	^ self testsResources / 'project_b' / 'lib'
 ]

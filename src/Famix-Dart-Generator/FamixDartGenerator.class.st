@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'class',
 		'method',
-		'attribute'
+		'attribute',
+		'package'
 	],
 	#category : #'Famix-Dart-Generator'
 }
@@ -28,12 +29,14 @@ FamixDartGenerator class >> submetamodels [
 ]
 
 { #category : #definition }
-FamixDartGenerator >> defineClasses [ 
-	super defineClasses. 
-	
+FamixDartGenerator >> defineClasses [
+
+	super defineClasses.
+
 	class := builder newClassNamed: #Class.
 	method := builder newClassNamed: #Method.
 	attribute := builder newClassNamed: #Attribut.
+	package := builder newClassNamed: #Package
 ]
 
 { #category : #definition }
@@ -47,8 +50,11 @@ FamixDartGenerator >> defineHierarchy [
 	class --|> #TCanImplement.
 	class --|> #TWithMethods.
 	class --|> #TWithAttributes.
+	class --|> #TPackageable.
 
 	method --|> #TMethod.
 
-	attribute --|> #TAttribute
+	attribute --|> #TAttribute.
+
+	package --|> #TPackage
 ]

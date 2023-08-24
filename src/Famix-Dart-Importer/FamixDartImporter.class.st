@@ -5,7 +5,8 @@ Class {
 		'model',
 		'parser',
 		'visitor',
-		'stackFamixEntities'
+		'stackFamixEntities',
+		'projectName'
 	],
 	#category : #'Famix-Dart-Importer'
 }
@@ -47,9 +48,10 @@ FamixDartImporter >> importFromString: aString [
 ]
 
 { #category : #importer }
-FamixDartImporter >> importProject: aFileReference [
+FamixDartImporter >> importProject: pn fromRootFolder: aFileReference [
 	"I parse all dart files under a root folder and import them"
 
+	projectName := pn.
 	(aFileReference allChildrenMatching: '*.dart') do: [
 		:dartFileReference |
 		self importFromDartAST:

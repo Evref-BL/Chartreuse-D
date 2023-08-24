@@ -16,7 +16,9 @@ FamixDartImporterProjectBTest >> setUp [
 	importer := FamixDartImporter new.
 	dartModel := FamixDartModel new.
 	importer model: dartModel.
-	importer importProject: FamixDartBridge testsResourcesProjectB
+	importer
+		importProject: 'project_b'
+		fromRootFolder: FamixDartBridge testsResourcesProjectB
 ]
 
 { #category : #tests }
