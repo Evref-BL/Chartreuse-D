@@ -22,6 +22,21 @@ FamixDartImporterProjectBTest >> setUp [
 ]
 
 { #category : #'tests - class definition' }
+FamixDartImporterProjectBTest >> testClassAHasAttribute [
+
+	self
+		assert:
+			(dartModel allModelClasses detect: [ :class |
+				 class name = 'ClassA' ]) attributes size
+		equals: 1.
+	self
+		assert:
+			(dartModel allModelClasses detect: [ :class |
+				 class name = 'ClassA' ]) attributes anyOne name
+		equals: 'world'
+]
+
+{ #category : #'tests - class definition' }
 FamixDartImporterProjectBTest >> testClassAHasMethod [
 
 	self

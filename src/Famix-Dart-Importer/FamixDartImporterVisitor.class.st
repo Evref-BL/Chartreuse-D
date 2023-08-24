@@ -97,11 +97,7 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 	"declaration equals attributs"
 	aClassMemberDefinition declaration ifNotNil: [
 		| name |
-		name := (aClassMemberDefinition declaration topParent completeSource
-			         copyFrom: aClassMemberDefinition declaration startPosition
-			         to: aClassMemberDefinition declaration stopPosition)
-			        asString.
-
+		name := aClassMemberDefinition declaration initializedIdentifierList initializedIdentifier identifier idNotFunction value.
 		famixEntity := self importer ensureAttributeNamed: name.
 		self stackScope lastLink value value addAttribute: famixEntity ].
 
