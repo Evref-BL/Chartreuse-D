@@ -1,1 +1,3 @@
-class SuperClassA {}
+class SuperClassA {
+  late var hello;
+}
