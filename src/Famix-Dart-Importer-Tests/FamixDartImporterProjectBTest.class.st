@@ -70,10 +70,11 @@ FamixDartImporterProjectBTest >> testMethodOfClassAHasALocalVariable [
 FamixDartImporterProjectBTest >> testNumberOfClasses [
 	"
 	- ClassA
+	- SuperClassA
 	- AnotherClassB
 	"
 
-	self assert: dartModel allModelClasses size equals: 2
+	self assert: dartModel allModelClasses size equals: 3
 ]
 
 { #category : #tests }
