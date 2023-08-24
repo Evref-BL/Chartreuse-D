@@ -97,7 +97,7 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 			        asString.
 
 		famixEntity := self importer ensureAttributeNamed: name.
-		famixEntity parentType: self stackScope lastLink value value ].
+		self stackScope lastLink value value addAttribute: famixEntity ].
 
 
 

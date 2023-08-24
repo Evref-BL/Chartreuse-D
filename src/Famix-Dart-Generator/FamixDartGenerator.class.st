@@ -53,6 +53,8 @@ FamixDartGenerator >> defineHierarchy [
 	class --|> #TWithMethods.
 	class --|> #TWithAttributes.
 	class --|> #TPackageable.
+	"About modifiers"
+	class --|> #TCanBeAbstract.
 
 	method --|> #TMethod.
 	method --|> #TWithLocalVariables.
