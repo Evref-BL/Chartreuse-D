@@ -27,3 +27,15 @@ FamixDartImporterTest >> testParseSimpleClass [
 	importer importFromString: 'class A {}'.
 	self assert: dartModel allModelClasses size equals: 1
 ]
+
+{ #category : #tests }
+FamixDartImporterTest >> testParseSimpleClassWithAttribute [
+
+	importer importFromString: 'class A {
+	int myInt;
+ 	String myString;
+	}'.
+	self
+		assert: (dartModel allWithType: FamixDartAttribut) size
+		equals: 2
+]
