@@ -19,7 +19,7 @@ Metacello new
 ```st
 importer := FamixDartImporter new.
 dartModel := FamixDartModel new.
-importer model: dartModel
+importer model: dartModel.
 
 importer importFromString: 'class A {}'.
 importer model
