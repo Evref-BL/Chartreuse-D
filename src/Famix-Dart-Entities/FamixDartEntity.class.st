@@ -57,6 +57,13 @@ FamixDartEntity >> isClass [
 ]
 
 { #category : #testing }
+FamixDartEntity >> isFunction [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
 FamixDartEntity >> isInheritance [
 
 	<generated>

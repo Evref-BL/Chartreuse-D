@@ -51,6 +51,7 @@ FamixDartImporterVisitor >> stackScope: anObject [
 FamixDartImporterVisitor >> visitClassDeclaration: aClassDeclaration [
 
 	| classType famixEntity |
+	
 	classType := (aClassDeclaration children detect: [ :c |
 		              c isKindOf: DartTypeNode ]) typeIdentifier value.
 	famixEntity := self importer ensureClassNamed: classType.
@@ -108,6 +109,17 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 
 	self visitProgram: aClassMemberDefinition.
 	^ self stackScope pop
+]
+
+{ #category : #generated }
+FamixDartImporterVisitor >> visitFunctionDeclaration: aFunctionDeclaration [
+
+
+	aFunctionDeclaration nodeVariables "#(#signature #body)".
+	
+	
+	
+	^ self visitProgram: aFunctionDeclaration
 ]
 
 { #category : #generated }

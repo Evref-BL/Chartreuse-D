@@ -1,3 +1,10 @@
+"
+Generate the model 
+```st
+FamixDartGenerator generate
+```
+
+"
 Class {
 	#name : #FamixDartGenerator,
 	#superclass : #FamixMetamodelGenerator,
@@ -7,7 +14,8 @@ Class {
 		'attribute',
 		'package',
 		'localVariable',
-		'inheritance'
+		'inheritance',
+		'function'
 	],
 	#category : #'Famix-Dart-Generator'
 }
@@ -41,6 +49,8 @@ FamixDartGenerator >> defineClasses [
 	package := builder newClassNamed: #Package.
 	localVariable := builder newClassNamed: #LocalVariable.
 	
+	function := builder newClassNamed: #Function. 
+	
 	"relation by traits"
 	inheritance := builder newClassNamed: #Inheritance
 ]
@@ -62,6 +72,8 @@ FamixDartGenerator >> defineHierarchy [
 
 	method --|> #TMethod.
 	method --|> #TWithLocalVariables.
+	
+	function --|> #TFunction.
 
 	attribute --|> #TAttribute.
 	localVariable --|> #TLocalVariable.

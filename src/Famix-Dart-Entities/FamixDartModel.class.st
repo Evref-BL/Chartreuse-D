@@ -1,8 +1,6 @@
 Class {
 	#name : #FamixDartModel,
 	#superclass : #MooseModel,
-	#traits : 'FamixDartTEntityCreator',
-	#classTraits : 'FamixDartTEntityCreator classTrait',
 	#category : #'Famix-Dart-Entities-Model'
 }
 

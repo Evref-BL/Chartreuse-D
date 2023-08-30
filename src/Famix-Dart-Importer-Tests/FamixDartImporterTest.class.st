@@ -22,6 +22,16 @@ FamixDartImporterTest >> setUp [
 ]
 
 { #category : #tests }
+FamixDartImporterTest >> testFunctionDeclaration [
+
+	importer importFromString: 'void function_void() {
+  print("hello");
+}
+'
+	
+]
+
+{ #category : #tests }
 FamixDartImporterTest >> testParseMethodLocalVariable [
 
 	importer importFromString: 'class A {

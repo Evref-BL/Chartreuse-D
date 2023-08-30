@@ -45,7 +45,8 @@ FamixDartImporterInheritanceResolver >> resolve [
 		detect: [ :c | c name = self context typeIdentifier value ]
 		ifOne: [ :famixEntity |
 			| inheritance |
-			inheritance := self importer model newInheritance.
+			"inheritance := self importer model newInheritance."
+			inheritance := self importer model add: FamixDartInheritance new.
 			inheritance superclass: famixEntity.
 			inheritance subclass: self subclass.
 			^ true ]
