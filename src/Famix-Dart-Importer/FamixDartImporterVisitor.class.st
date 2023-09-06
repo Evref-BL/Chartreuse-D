@@ -78,20 +78,17 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 	aClassMemberDefinition nodeVariables. "#(#methodSignature #functionBody #declaration)" "method"
 
 	"si definition est une methode avec signature et un body"
-	(aClassMemberDefinition methodSignature notNil and: [
+	(aClassMemberDefinition signature notNil and: [
 		 aClassMemberDefinition functionBody notNil ]) ifTrue: [
-		| signature |
-		signature := (aClassMemberDefinition methodSignature topParent
-			              completeSource
-			              copyFrom:
-			              aClassMemberDefinition methodSignature startPosition
-			              to:
-			              aClassMemberDefinition methodSignature stopPosition)
-			             asString , ')'.
+		| signature pMethod|
+		
+	 
+		pMethod := ProxySmaCCDartMethodNode fromNode: aClassMemberDefinition. 
+		
+		
 		famixEntity := self importer ensureMethodNamed:
-			               aClassMemberDefinition methodSignature
-				               functionSignature identifierNotFUNCTION value.
-		famixEntity signature: signature.
+			               pMethod functionIdentifier.
+		famixEntity signature: pMethod signature.
 
 		self stackScope lastLink value value addMethod: famixEntity ].
 
@@ -113,13 +110,40 @@ FamixDartImporterVisitor >> visitClassMemberDefinition: aClassMemberDefinition [
 
 { #category : #generated }
 FamixDartImporterVisitor >> visitFunctionDeclaration: aFunctionDeclaration [
+	|famixEntity|
 
+"	aFunctionDeclaration nodeVariables ""#(#signature #body)""."
 
-	aFunctionDeclaration nodeVariables "#(#signature #body)".
 	
+	(aFunctionDeclaration signature notNil and: [
+		 aFunctionDeclaration body notNil ]) ifTrue:[
+		| signature proxy|
+		
+
+		proxy := ProxySmaCCDartFunctionNode fromNode: aFunctionDeclaration. 
+		signature := proxy signature. 
+		
+		famixEntity := self importer ensureFunctionNamed: proxy functionIdentifier.
+
+		famixEntity signature: signature.
+		
+		famixEntity declaredType: (self importer ensureTypeNamed: proxy returnedType).
+		
 	
+
+		"famixEntity addParameter: (self importer ensureParameterNames: aFunctionDeclaration )"
+		proxy parameters do: [ :each | 
+			|famixParameter|
+			
+			famixParameter := (self importer ensureParameterNamed: each identifier). 
+			famixParameter declaredType: (self importer ensureTypeNamed: each type).
+			
+			famixEntity addParameter: famixParameter.
+			 ]
+		
+	].
 	
-	^ self visitProgram: aFunctionDeclaration
+	^  self visitProgram: aFunctionDeclaration
 ]
 
 { #category : #generated }

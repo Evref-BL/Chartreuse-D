@@ -24,10 +24,24 @@ FamixDartImporterTest >> setUp [
 { #category : #tests }
 FamixDartImporterTest >> testFunctionDeclaration [
 
-	importer importFromString: 'void function_void() {
+	importer importFromString: 'TypeA functionA(int a, TypeA b, dynamic c) {
   print("hello");
 }
-'
+'.
+
+self assert: dartModel allFunctions size equals: 1
+	
+]
+
+{ #category : #tests }
+FamixDartImporterTest >> testFunctionDeclarationNoParameter [
+
+	importer importFromString: 'TypeA functionA() {
+  print("hello");
+}
+'.
+
+self assert: dartModel allFunctions size equals: 1
 	
 ]
 

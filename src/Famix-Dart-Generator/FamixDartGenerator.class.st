@@ -15,7 +15,10 @@ Class {
 		'package',
 		'localVariable',
 		'inheritance',
-		'function'
+		'function',
+		'primitiveType',
+		'type',
+		'parameter'
 	],
 	#category : #'Famix-Dart-Generator'
 }
@@ -51,6 +54,12 @@ FamixDartGenerator >> defineClasses [
 	
 	function := builder newClassNamed: #Function. 
 	
+	primitiveType := builder newClassNamed: #PrimitiveType. 
+	type := builder newClassNamed: #Type. 
+	parameter := builder newClassNamed: #Parameter.
+	
+	
+	
 	"relation by traits"
 	inheritance := builder newClassNamed: #Inheritance
 ]
@@ -73,7 +82,11 @@ FamixDartGenerator >> defineHierarchy [
 	method --|> #TMethod.
 	method --|> #TWithLocalVariables.
 	
+	type --|> #TType.
+	primitiveType --|> #TPrimitiveType.
+	
 	function --|> #TFunction.
+	parameter --|> #TParameter.
 
 	attribute --|> #TAttribute.
 	localVariable --|> #TLocalVariable.

@@ -92,6 +92,13 @@ FamixDartEntity >> isPackage [
 ]
 
 { #category : #testing }
+FamixDartEntity >> isPrimitiveType [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
 FamixDartEntity >> isStructuralEntity [
 
 	<generated>

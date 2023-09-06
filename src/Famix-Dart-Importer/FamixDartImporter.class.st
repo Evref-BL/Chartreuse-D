@@ -39,6 +39,14 @@ FamixDartImporter >> ensureClassNamed: aString [
 ]
 
 { #category : #'private - factory' }
+FamixDartImporter >> ensureFunctionNamed: aString [
+
+	^ self model add: (FamixDartFunction  new
+			   name: aString;
+			   yourself)
+]
+
+{ #category : #'private - factory' }
 FamixDartImporter >> ensureLocalVariableNamed: aString [
 
 	^ self model add: (FamixDartLocalVariable new
@@ -58,6 +66,30 @@ FamixDartImporter >> ensureMethodNamed: aString [
 FamixDartImporter >> ensurePackageNamed: aString [
 
 	^ self model add: (FamixDartPackage new
+			   name: aString;
+			   yourself)
+]
+
+{ #category : #'as yet unclassified' }
+FamixDartImporter >> ensureParameterNamed: aString [
+
+	^ self model add: (FamixDartParameter new
+			   name: aString;
+			   yourself)
+]
+
+{ #category : #'private - factory' }
+FamixDartImporter >> ensurePrimitiveTypeNamed: aString [
+
+	^ self model add: (FamixDartPrimitiveType   new
+			   name: aString;
+			   yourself)
+]
+
+{ #category : #'private - factory' }
+FamixDartImporter >> ensureTypeNamed: aString [
+
+	^ self model add: (FamixDartType new
 			   name: aString;
 			   yourself)
 ]
@@ -139,4 +171,24 @@ FamixDartImporter >> resolveAll [
 		importerResolvers pop
 			importer: self;
 			resolve ]
+]
+
+{ #category : #'as yet unclassified' }
+FamixDartImporter >> typeResolver: aFunctionDeclaration [
+	"return the type of signature, either a FamixDartType or a FamixDartPrimitiveType"
+	|type famixEntity|
+	type := aFunctionDeclaration signature type. 
+	type typeIdentifier isNotNil ifTrue:[ famixEntity := self ensureTypeNamed: type typeIdentifier value ].
+	type typeNotFunction isNotNil ifTrue:[ 
+		
+		type typeNotFunction class == SmaCCToken ifTrue: [ 
+			famixEntity := self ensurePrimitiveTypeNamed: type typeNotFunction value
+			 ] ifFalse: [
+	
+			famixEntity := self ensureTypeNamed: type typeNotFunction typeIdentifier value.
+			].
+		
+		 ].
+	
+	^ famixEntity
 ]
